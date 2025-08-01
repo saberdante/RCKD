@@ -10,12 +10,12 @@ def rckd_loss(selected_log_p_student, selected_log_p_teacher, temperature):
     student_log_ratios = selected_log_p_student.unsqueeze(2) - selected_log_p_student.unsqueeze(1)
     teacher_log_ratios = selected_log_p_teacher.unsqueeze(2) - selected_log_p_teacher.unsqueeze(1)
 
-    # 提取上三角部分（不包括对角线）
+
     triu_mask = torch.triu(torch.ones_like(student_log_ratios[0]), diagonal=1).bool()
     student_vec = student_log_ratios[:, triu_mask]
     teacher_vec = teacher_log_ratios[:, triu_mask]
 
-    # 计算余弦相似度
+
     cos_sim = F.cosine_similarity(student_vec, teacher_vec, dim=1)
     loss_cos = 1 - cos_sim.mean()
     loss_cos *= temperature ** 2
