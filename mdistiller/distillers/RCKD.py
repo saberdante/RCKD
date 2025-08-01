@@ -27,9 +27,9 @@ class RCKD(Distiller):
 
     def __init__(self, student, teacher, cfg):
         super(RCKD, self).__init__(student, teacher)
-        self.temperature = cfg.KD.TEMPERATURE
-        self.ce_loss_weight = cfg.KD.LOSS.CE_WEIGHT
-        self.kd_loss_weight = cfg.KD.LOSS.KD_WEIGHT
+        self.temperature = cfg.RCKD.TEMPERATURE
+        self.ce_loss_weight = cfg.RCKD.LOSS.CE_WEIGHT
+        self.kd_loss_weight = cfg.RCKD.LOSS.KD_WEIGHT
 
     def forward_train(self, image, target, **kwargs):
         logits_student, _ = self.student(image)
